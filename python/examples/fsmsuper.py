@@ -1,4 +1,4 @@
-from implementations.fsmsuper import FSM
+from lib.fsmsuper import FSM
 
 
 class Simple(FSM):

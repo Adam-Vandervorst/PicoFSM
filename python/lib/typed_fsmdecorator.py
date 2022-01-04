@@ -13,12 +13,13 @@ def fsm_of(base_class):
     def __new__(cls, *args, **kwargs):
         cls.__map = {base_state: []}
 
-        for name, val in cls.__dict__.copy().items():
-            if callable(val):
-                if isinstance(val, TypeVar):
-                    cls.__map[val] = []
-                elif hasattr(val, 'start'):
-                    cls.__map[val.start].append((val, val.end))
+        for val in vars(cls).values():
+            if isinstance(val, TypeVar):
+                cls.__map[val] = []
+
+        for val in vars(cls).values():
+            if callable(val) and hasattr(val, 'start'):
+                cls.__map[val.start].append((val, val.end))
 
         cls.__cur = base_state
 

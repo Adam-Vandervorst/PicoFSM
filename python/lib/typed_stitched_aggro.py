@@ -11,10 +11,12 @@ def fsm_of(base_class):
         # map states to list of transitions
         fsmcls.__map = {base_state: []}
 
-        for name, val in fsmcls.__dict__.items():
+        for val in vars(fsmcls).values():
             if isinstance(val, TypeVar):
                 fsmcls.__map[val] = []
-            elif callable(val) and hasattr(val, 'start'):
+
+        for val in vars(fsmcls).values():
+            if callable(val) and hasattr(val, 'start'):
                 fsmcls.__map[val.start].append((val, val.end))
 
         fsmcls.__cur = base_state

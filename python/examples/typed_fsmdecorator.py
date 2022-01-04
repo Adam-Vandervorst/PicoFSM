@@ -1,4 +1,4 @@
-from implementations.typed_stitched import fsm_of, base_state, on, TypeVar
+from lib.typed_fsmdecorator import fsm_of, base_state, on, TypeVar
 
 
 class A:
@@ -27,13 +27,13 @@ class Simple:
         print('transb going')
 
 
-t = A(2)
-next(t.fsm)
+t = Simple(2)
+next(t)
 t.test = True
-next(t.fsm)
-next(t.fsm)
-next(t.fsm)
+next(t)
+next(t)
+next(t)
 t.i = 8
-next(t.fsm)
+next(t)
 t.i = 15
-next(t.fsm)
+next(t)

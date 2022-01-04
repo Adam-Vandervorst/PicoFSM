@@ -19,12 +19,13 @@ def fsm_of(base_class):
         fsm = type('FSM', (fsmcls,), {'__map': {base_state: []},
                                       '__cur': base_state})
 
-        for name, val in fsmcls.__dict__.items():
-            if callable(val):
-                if isinstance(val, TypeVar):
-                    fsm.__map[val] = []
-                elif hasattr(val, 'start'):
-                    fsm.__map[val.start].append((val, val.end))
+        for val in vars(fsmcls).values():
+            if isinstance(val, TypeVar):
+                fsm.__map[val] = []
+
+        for val in vars(fsmcls).values():
+            if callable(val) and hasattr(val, 'start'):
+                fsm.__map[val.start].append((val, val.end))
 
         bc = object.__new__(base_class)
         fsm.__next__ = create(base_class, bc)

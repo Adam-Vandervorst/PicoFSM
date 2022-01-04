@@ -14,12 +14,13 @@ class FSM:
                 self.__cur = self.__cur if ret is ... else ret
 
     def __new__(cls, *args, **kwargs):
-        for name, val in cls.__dict__.copy().items():
-            if callable(val):
-                if isinstance(val, TypeVar):
-                    cls.__map[val] = []
-                elif hasattr(val, 'start'):
-                    cls.__map[val.start].append((val, val.end))
+        for val in vars(cls).values():
+            if isinstance(val, TypeVar):
+                cls.__map[val] = []
+
+        for val in vars(cls).values():
+            if callable(val) and hasattr(val, 'start'):
+                cls.__map[val.start].append((val, val.end))
         return object.__new__(cls)
 
     @staticmethod

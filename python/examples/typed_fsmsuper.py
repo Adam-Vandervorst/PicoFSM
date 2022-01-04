@@ -1,4 +1,4 @@
-from implementations.typed_fsmsuper import FSM, TypeVar
+from lib.typed_fsmsuper import FSM, TypeVar
 
 
 # noinspection PyTypeChecker

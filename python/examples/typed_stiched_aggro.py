@@ -1,4 +1,4 @@
-from implementations.typed_stitched_aggro import fsm_of, base_state, on, TypeVar
+from lib.typed_stitched_aggro import fsm_of, base_state, on, TypeVar
 
 
 class Abase():
